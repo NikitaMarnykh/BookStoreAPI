@@ -1,0 +1,8 @@
+fastapi[all]~=0.110.0
+sqlalchemy~=2.0.28
+aiosqlite
+alembic~=1.13.1
+'fastapi-users[sqlalchemy]'
+uvicorn
+pydantic~=2.6.4
+multipart
