@@ -5,4 +5,4 @@ alembic~=1.13.1
 'fastapi-users[sqlalchemy]'
 uvicorn
 pydantic~=2.6.4
-multipart
+fastapi_filter
