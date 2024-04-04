@@ -1,11 +1,11 @@
 from typing import Optional
 from fastapi import Depends, Request
 from fastapi_users import BaseUserManager, IntegerIDMixin, exceptions, models, schemas
-from fastapi_users.models import UP
 from starlette.responses import Response
 
 from src.auth.models_user import User
 from src.database import get_user_db
+from src.image.crud import delete_image
 
 SECRET = "SECRET"
 
@@ -40,6 +40,19 @@ class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
         await self.on_after_register(created_user, request)
 
         return created_user
+
+    async def delete(
+        self,
+        user: models.UP,
+        request: Optional[Request] = None,
+    ) -> None:
+
+        await self.on_before_delete(user, request)
+        await self.user_db.delete(user)
+        for book in user.books:
+            image_name = book.image.name
+            await delete_image(image_name=image_name)
+        await self.on_after_delete(user, request)
 
     async def on_after_login(
         self,
