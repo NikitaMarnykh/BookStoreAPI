@@ -11,18 +11,20 @@ class Book(base.Base):
     __tablename__: str = "book"
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    title: Mapped[str] = mapped_column(String(100), nullable=False)
-    author: Mapped[str] = mapped_column(String(100), nullable=False)
+    title: Mapped[str] = mapped_column(String(100), nullable=False, onupdate=True)
+    author: Mapped[str] = mapped_column(String(100), nullable=False, onupdate=True)
     genre: Mapped[str] = mapped_column(String(50), nullable=False)
-    price: Mapped[float] = mapped_column(nullable=False)
-    children = relationship(
+    price: Mapped[int] = mapped_column(nullable=False)
+    image = relationship(
         "Image",
-        back_populates="parent",
-        cascade="all, delete",
-        passive_deletes=True,
+        back_populates="book",
+        cascade="save-update, merge, delete, delete-orphan",
         uselist=False
-    )
+        )
     registered_at: Mapped[datetime] = mapped_column(default=datetime.utcnow, nullable=False)
     updated_at: Mapped[datetime] = mapped_column(default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
-    owner_id: Mapped[int] = mapped_column(ForeignKey("user.id", ondelete="CASCADE"))
-    owner: Mapped["models_user.User"] = relationship(back_populates="books")
+    owner_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
+    owner: Mapped["models_user.User"] = relationship("User",
+                                                     back_populates="books",
+                                                     uselist=False
+                                                     )

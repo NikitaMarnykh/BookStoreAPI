@@ -8,7 +8,6 @@ from src.auth.auth import auth_backend
 from src.book_operations.router import router as books_router
 
 app = FastAPI(title="BookStoreAPI")
-#
 
 fastapi_users = FastAPIUsers[User, int](
     get_user_manager,
@@ -32,6 +31,5 @@ app.include_router(
     prefix="/auth",
     tags=["auth"],
 )
-
 
 app.include_router(books_router)
