@@ -1,4 +1,6 @@
-<h1>BookStoreAPI</h1>
+<h1> BookStoreAPI </h1>
+<h2> PyCharm 2024.1 </h2>
+<h2> Python 3.11 </h2>
 <ul>
   <h2> 1. Первая локальная установка </h2>
   <li>1.1 Cоздайте директорию проекта </li>
@@ -13,7 +15,7 @@
   </ul>
 <ul> <h2> 2. Запуск </h2>
   <l1> 2.1 Из папки проекта (проследите, чтобы в терминале было (.venv)) </l1>
-  <li> 2.2  alembic revision --autogenerate -m "Database creation" </li>
+  <li> 2.2  alembic revision --autogenerate -m "Database creation" (Проверьте существует ли директория /migrations/versions </li>
   <li> 2.3 Применяем миграцию: </li>
      <li> 2.3.1 alembic upgrade "Здесь должен быть ключ миграции, найти его можно в папке /migrations/versions/"..._database_creation.py" называется Revision ID: </li>
   <li> 2.4 Запускаем сервер uvicorn main:app --reload </li>
